@@ -658,7 +658,9 @@ footer { padding-block: 40px 32px; color: var(--muted); font-size: 0.85rem; bord
   dob.addEventListener("change", syncParent);
   dob.addEventListener("input", syncParent);
 
-  if (GOOGLE_FORM.FORM_ID) {
+  // The form can only send from the real website, not from the preview inside Claude.
+  var insideClaude = /claude|anthropic/i.test(location.hostname);
+  if (GOOGLE_FORM.FORM_ID && !insideClaude) {
     form.hidden = false;
     document.getElementById("email-intro").innerHTML = '<span data-l="en">Prefer email? Send us:</span><span data-l="el">Προτιμάτε email; Στείλτε μας:</span>';
   }
