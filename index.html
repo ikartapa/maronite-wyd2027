@@ -143,6 +143,27 @@ ol.rules { margin: 0; padding-left: 1.3rem; display: grid; gap: 6px; }
 .status { font-size: 0.85rem; color: var(--cedar); min-height: 1.2em; }
 ol.fields { margin: 0; padding-left: 1.3rem; display: grid; gap: 4px; }
 
+/* Registration form */
+.reg { display: grid; gap: 14px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
+.reg .row { display: grid; gap: 6px; min-width: 0; }
+.reg .row.two { grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 14px; }
+.reg .row.two > div { display: grid; gap: 6px; min-width: 0; }
+.reg label { font-weight: 600; font-size: 0.92rem; }
+.reg input[type="text"], .reg input[type="tel"], .reg input[type="date"] {
+  font: 400 1rem var(--body); color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; width: 100%; min-width: 0;
+}
+.reg input:focus { outline: 3px solid color-mix(in srgb, var(--cedar) 35%, transparent); border-color: var(--cedar); }
+.reg input[aria-invalid="true"] { border-color: var(--seal); }
+.reg fieldset.parent { border: 1px dashed var(--cedar); border-radius: 10px; padding: 12px 14px; margin: 0; display: grid; gap: 10px; }
+.reg legend { font-weight: 600; font-size: 0.9rem; color: var(--cedar); padding-inline: 6px; }
+.reg .check { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; font-weight: 400; font-size: 0.92rem; }
+.reg .check input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--cedar); }
+.reg .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.err { color: var(--seal); font-size: 0.9rem; font-weight: 600; min-height: 1.2em; }
+.done { background: var(--card); border: 1px solid var(--cedar); border-radius: 12px; padding: 18px; display: grid; gap: 8px; }
+.done h3 { color: var(--cedar); }
+
 /* Announcement */
 .announce { background: var(--card); border: 1px dashed var(--line); border-radius: 10px; padding: 16px; display: grid; gap: 10px; }
 .announce p { max-width: none; }
@@ -450,15 +471,73 @@ footer { padding-block: 40px 32px; color: var(--muted); font-size: 0.85rem; bord
     <h2><span data-l="en">Register your interest</span><span data-l="el">Δηλώστε ενδιαφέρον</span></h2>
     <div class="signup">
       <p><span data-l="en">Registering interest is free and does not commit you. It helps us reserve enough flight seats.</span><span data-l="el">Η δήλωση ενδιαφέροντος είναι δωρεάν και δεν σας δεσμεύει. Μας βοηθά να κρατήσουμε αρκετές θέσεις στις πτήσεις.</span></p>
-      <div><a class="btn primary" id="form-link" href="#" target="_blank" rel="noopener" hidden><span data-l="en">Open the sign-up form</span><span data-l="el">Άνοιγμα φόρμας εγγραφής</span></a></div>
-      <p id="email-intro"><span data-l="en">Send us an email with:</span><span data-l="el">Στείλτε μας email με:</span></p>
-      <ol class="fields">
-        <li><span data-l="en">Full name</span><span data-l="el">Ονοματεπώνυμο</span></li>
-        <li><span data-l="en">Parish</span><span data-l="el">Ενορία</span></li>
-        <li><span data-l="en">Date of birth</span><span data-l="el">Ημερομηνία γέννησης</span></li>
-        <li><span data-l="en">Mobile number</span><span data-l="el">Κινητό τηλέφωνο</span></li>
-        <li><span data-l="en">For under-18s: a parent's name and mobile number</span><span data-l="el">Για ανήλικους: όνομα και κινητό γονέα</span></li>
-      </ol>
+
+      <form id="reg-form" class="reg" novalidate hidden>
+        <div class="row">
+          <label for="f-name"><span data-l="en">Full name</span><span data-l="el">Ονοματεπώνυμο</span></label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="row two">
+          <div>
+            <label for="f-dob"><span data-l="en">Date of birth</span><span data-l="el">Ημερομηνία γέννησης</span></label>
+            <input id="f-dob" name="dob" type="date" min="1960-01-01" max="2015-12-31" required>
+          </div>
+          <div>
+            <label for="f-mobile"><span data-l="en">Mobile number</span><span data-l="el">Κινητό τηλέφωνο</span></label>
+            <input id="f-mobile" name="mobile" type="tel" autocomplete="tel" inputmode="tel" placeholder="+357 99 123456" required>
+          </div>
+        </div>
+        <div class="row">
+          <label for="f-parish"><span data-l="en">Parish</span><span data-l="el">Ενορία</span></label>
+          <input id="f-parish" name="parish" type="text" list="parishes-list" required>
+          <datalist id="parishes-list">
+            <option value="St. Charbel, Limassol"></option>
+            <option value="Our Lady of Graces, Nicosia"></option>
+            <option value="Kormakitis"></option>
+            <option value="Asomatos"></option>
+            <option value="Karpasha"></option>
+            <option value="Agia Marina"></option>
+            <option value="Agia Kyriaki, Paphos"></option>
+          </datalist>
+        </div>
+        <fieldset class="parent" id="parent-block" hidden>
+          <legend><span data-l="en">Under 18 at departure: a parent or guardian</span><span data-l="el">Κάτω των 18 κατά την αναχώρηση: γονέας ή κηδεμόνας</span></legend>
+          <div class="row two">
+            <div>
+              <label for="f-pname"><span data-l="en">Parent's name</span><span data-l="el">Όνομα γονέα</span></label>
+              <input id="f-pname" name="pname" type="text">
+            </div>
+            <div>
+              <label for="f-pmobile"><span data-l="en">Parent's mobile</span><span data-l="el">Κινητό γονέα</span></label>
+              <input id="f-pmobile" name="pmobile" type="tel" inputmode="tel">
+            </div>
+          </div>
+        </fieldset>
+        <div class="hp" aria-hidden="true"><label for="f-website">Website</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+        <label class="check" for="f-consent">
+          <input id="f-consent" name="consent" type="checkbox" required>
+          <span><span data-l="en">I agree that the Maronite Youth Ministry of Cyprus keeps these details to organise the WYD 2027 trip.</span><span data-l="el">Συμφωνώ η Ποιμαντική Νεολαίας Μαρωνιτών Κύπρου να διατηρεί αυτά τα στοιχεία για την οργάνωση του ταξιδιού ΠΗΝ 2027.</span></span>
+        </label>
+        <div class="err" id="form-error" role="alert"></div>
+        <div><button type="submit" class="btn primary" id="f-submit"><span data-l="en">Send registration</span><span data-l="el">Αποστολή εγγραφής</span></button></div>
+      </form>
+
+      <div class="done" id="form-done" hidden>
+        <h3><span data-l="en">Thank you, you are registered.</span><span data-l="el">Ευχαριστούμε, η εγγραφή σας καταχωρήθηκε.</span></h3>
+        <p><span data-l="en">We will contact you by phone with the next steps.</span><span data-l="el">Θα επικοινωνήσουμε μαζί σας τηλεφωνικά για τα επόμενα βήματα.</span></p>
+        <div><button type="button" class="btn" id="f-again"><span data-l="en">Register another person</span><span data-l="el">Εγγραφή άλλου ατόμου</span></button></div>
+      </div>
+
+      <div id="email-fallback">
+        <p id="email-intro"><span data-l="en">Send us an email with:</span><span data-l="el">Στείλτε μας email με:</span></p>
+        <ol class="fields">
+          <li><span data-l="en">Full name</span><span data-l="el">Ονοματεπώνυμο</span></li>
+          <li><span data-l="en">Parish</span><span data-l="el">Ενορία</span></li>
+          <li><span data-l="en">Date of birth</span><span data-l="el">Ημερομηνία γέννησης</span></li>
+          <li><span data-l="en">Mobile number</span><span data-l="el">Κινητό τηλέφωνο</span></li>
+          <li><span data-l="en">For under-18s: a parent's name and mobile number</span><span data-l="el">Για ανήλικους: όνομα και κινητό γονέα</span></li>
+        </ol>
+      </div>
       <div class="email-row">
         <span class="email" id="email-address">maroniteyouthpastoralcy@gmail.com</span>
         <button type="button" class="btn" id="copy-email"><span data-l="en">Copy address</span><span data-l="el">Αντιγραφή διεύθυνσης</span></button>
@@ -491,8 +570,12 @@ footer { padding-block: 40px 32px; color: var(--muted); font-size: 0.85rem; bord
 
 <script>
 (function () {
-  // Paste a Google Form link here to show the sign-up form button.
-  var FORM_URL = "";
+  // Google Form connection. Fill in the form id and the entry numbers from the form's pre-filled link.
+  // While FORM_ID is empty, the form stays hidden and people register by email.
+  var GOOGLE_FORM = {
+    FORM_ID: "",
+    entries: { name: "", dob: "", mobile: "", parish: "", pname: "", pmobile: "", consent: "" }
+  };
 
   var root = document.documentElement;
   function setLang(l) {
@@ -506,10 +589,83 @@ footer { padding-block: 40px 32px; color: var(--muted); font-size: 0.85rem; bord
     b.addEventListener("click", function () { setLang(b.dataset.set); });
   });
 
-  if (FORM_URL) {
-    var f = document.getElementById("form-link"); f.href = FORM_URL; f.hidden = false;
-    document.getElementById("email-intro").innerHTML = '<span data-l="en">Or send us an email with:</span><span data-l="el">Ή στείλτε μας email με:</span>';
+  var form = document.getElementById("reg-form");
+  var done = document.getElementById("form-done");
+  var fallback = document.getElementById("email-fallback");
+  var errBox = document.getElementById("form-error");
+  var parentBlock = document.getElementById("parent-block");
+  var dob = document.getElementById("f-dob");
+  var DEPARTURE = new Date(2027, 6, 27);
+
+  function isMinor(v) {
+    if (!v) return false;
+    var b = new Date(v + "T00:00:00");
+    var age = DEPARTURE.getFullYear() - b.getFullYear();
+    var m = DEPARTURE.getMonth() - b.getMonth();
+    if (m < 0 || (m === 0 && DEPARTURE.getDate() < b.getDate())) age--;
+    return age < 18;
   }
+  function syncParent() {
+    var minor = isMinor(dob.value);
+    parentBlock.hidden = !minor;
+    document.getElementById("f-pname").required = minor;
+    document.getElementById("f-pmobile").required = minor;
+  }
+  dob.addEventListener("change", syncParent);
+  dob.addEventListener("input", syncParent);
+
+  if (GOOGLE_FORM.FORM_ID) {
+    form.hidden = false;
+    document.getElementById("email-intro").innerHTML = '<span data-l="en">Prefer email? Send us:</span><span data-l="el">Προτιμάτε email; Στείλτε μας:</span>';
+  }
+
+  function msg(en, gr) { errBox.textContent = el() ? gr : en; }
+
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    errBox.textContent = "";
+    if (document.getElementById("f-website").value) return; // spam trap
+    syncParent();
+    var bad = null;
+    form.querySelectorAll("input[required]").forEach(function (i) {
+      var empty = i.type === "checkbox" ? !i.checked : !i.value.trim();
+      i.setAttribute("aria-invalid", empty ? "true" : "false");
+      if (empty && !bad) bad = i;
+    });
+    if (bad) {
+      bad.focus();
+      if (bad.id === "f-consent") msg("Please tick the consent box.", "Παρακαλούμε επιλέξτε το κουτί συγκατάθεσης.");
+      else msg("Please fill in all the highlighted fields.", "Παρακαλούμε συμπληρώστε όλα τα σημειωμένα πεδία.");
+      return;
+    }
+    var phoneOk = /^[+0-9 ()-]{8,}$/.test(document.getElementById("f-mobile").value.trim());
+    if (!phoneOk) { document.getElementById("f-mobile").setAttribute("aria-invalid", "true"); msg("Please check the mobile number.", "Παρακαλούμε ελέγξτε τον αριθμό κινητού."); return; }
+
+    var e = GOOGLE_FORM.entries;
+    var data = new URLSearchParams();
+    data.append("entry." + e.name, document.getElementById("f-name").value.trim());
+    data.append("entry." + e.dob, dob.value);
+    data.append("entry." + e.mobile, document.getElementById("f-mobile").value.trim());
+    data.append("entry." + e.parish, document.getElementById("f-parish").value.trim());
+    data.append("entry." + e.pname, document.getElementById("f-pname").value.trim());
+    data.append("entry." + e.pmobile, document.getElementById("f-pmobile").value.trim());
+    data.append("entry." + e.consent, "Yes");
+
+    var btn = document.getElementById("f-submit");
+    btn.disabled = true;
+    fetch("https://docs.google.com/forms/d/e/" + GOOGLE_FORM.FORM_ID + "/formResponse", { method: "POST", mode: "no-cors", body: data })
+      .then(function () {
+        form.hidden = true; done.hidden = false; form.reset(); syncParent();
+        done.scrollIntoView({ block: "center" });
+      })
+      .catch(function () {
+        msg("We could not send your registration. Check your connection and try again, or email us below.", "Δεν ήταν δυνατή η αποστολή. Ελέγξτε τη σύνδεσή σας και δοκιμάστε ξανά, ή στείλτε μας email παρακάτω.");
+      })
+      .then(function () { btn.disabled = false; });
+  });
+  document.getElementById("f-again").addEventListener("click", function () {
+    done.hidden = true; form.hidden = false; document.getElementById("f-name").focus();
+  });
 
   // Animation (only when the viewer has not asked for reduced motion)
   var motionOK = true;
