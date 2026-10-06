@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head>
+<body>
+<title>Maronite Youth to Seoul 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700&family=Noto+Serif+Display:ital,wght@0,600;1,500;1,600&display=swap">
+<style>
+/* Layout: a single reading column shaped as a route, Larnaca to Seoul; sections are stops along it. */
+:root {
+  --paper: #F4F6F3;
+  --card: #FFFFFF;
+  --ink: #15212E;
+  --muted: #56626D;
+  --line: #D6DCD6;
+  --cedar: #2F5D4A;
+  --cedar-soft: #E3ECE6;
+  --seal: #B93E27;
+  --seal-ink: #FFFFFF;
+  --display: "Noto Serif Display", "Georgia", "Times New Roman", serif;
+  --body: "Commissioner", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --step-0: 1rem;
+  --step-1: 1.2rem;
+  --step-2: 1.6rem;
+  --step-3: clamp(2.2rem, 6vw, 3.6rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0F161C; --card: #16212A; --ink: #E7ECEA; --muted: #9DA9B1; --line: #26333D;
+    --cedar: #86BFA3; --cedar-soft: #1B2B26; --seal: #E2694F; --seal-ink: #160B08; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0F161C; --card: #16212A; --ink: #E7ECEA; --muted: #9DA9B1; --line: #26333D;
+  --cedar: #86BFA3; --cedar-soft: #1B2B26; --seal: #E2694F; --seal-ink: #160B08; color-scheme: dark;
+}
+
+html:not([data-lang="el"]) [data-l="el"] { display: none !important; }
+html[data-lang="el"] [data-l="en"] { display: none !important; }
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--body); font-size: var(--step-0); line-height: 1.6;
+  padding-inline: 16px; margin: 0;
+}
+.wrap { max-width: 46rem; margin-inline: auto; }
+a { color: var(--cedar); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--seal); outline-offset: 3px; border-radius: 4px; }
+h1, h2 { font-family: var(--display); text-wrap: balance; line-height: 1.15; margin: 0; }
+h2 { font-size: var(--step-2); font-weight: 600; color: var(--ink); }
+h3 { font-size: var(--step-1); margin: 0; font-weight: 600; }
+p { margin: 0; max-width: 65ch; }
+
+/* Top bar */
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--paper); border-bottom: 1px solid var(--line);
+  margin-inline: -16px; padding: 10px 16px;
+}
+.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.brand { font-weight: 600; font-size: 0.95rem; letter-spacing: 0.01em; }
+.lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.lang button {
+  font: 600 0.85rem var(--body); padding: 6px 14px; border: 0; background: transparent; color: var(--muted); cursor: pointer;
+}
+.lang button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+/* Hero */
+.hero { padding-block: 40px 28px; display: grid; gap: 18px; }
+.eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.78rem; font-weight: 600; color: var(--cedar); }
+.hero h1 { font-size: var(--step-3); font-weight: 600; }
+.hero h1 em { font-style: italic; font-weight: 500; color: var(--seal); }
+.hero .lead { font-size: var(--step-1); color: var(--muted); }
+.route { width: 100%; max-width: 100%; height: auto; display: block; }
+.route .path { stroke: var(--muted); }
+.route .dot-a { fill: var(--cedar); }
+.route .dot-b { fill: var(--seal); }
+.route text { fill: var(--ink); font: 600 13px var(--body); }
+.route .sub { fill: var(--muted); font: 400 11.5px var(--body); }
+.quote { border-left: 3px solid var(--cedar); padding: 4px 0 4px 14px; margin: 0; font-family: var(--display); font-style: italic; font-size: 1.15rem; }
+.quote cite { display: block; font: 400 0.85rem var(--body); color: var(--muted); font-style: normal; margin-top: 4px; }
+.ctas { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 11px 18px; border-radius: 8px; font: 600 0.95rem var(--body); text-decoration: none; cursor: pointer;
+  border: 1px solid var(--line); background: var(--card); color: var(--ink);
+}
+.btn.primary { background: var(--seal); border-color: var(--seal); color: var(--seal-ink); }
+
+/* Facts */
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.fact { background: var(--card); padding: 14px 16px; display: grid; gap: 2px; min-width: 0; }
+.fact .k { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; }
+.fact .v { font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* Sections */
+section { padding-block: 36px 8px; display: grid; gap: 14px; scroll-margin-top: 80px; }
+
+/* Itinerary: a real sequence, so numbered */
+.stops { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.stop { display: grid; grid-template-columns: 2.2rem 1fr; gap: 12px; position: relative; padding-bottom: 18px; }
+.stop:not(:last-child)::before { content: ""; position: absolute; left: calc(1.1rem - 1px); top: 2.2rem; bottom: 0; border-left: 2px dashed var(--line); }
+.stop .n {
+  width: 2.2rem; height: 2.2rem; border-radius: 50%; display: grid; place-items: center;
+  border: 2px solid var(--cedar); color: var(--cedar); font-weight: 700; font-variant-numeric: tabular-nums; background: var(--paper);
+}
+.stop.main .n { background: var(--seal); border-color: var(--seal); color: var(--seal-ink); }
+.stop .when { font-size: 0.85rem; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
+.stop .body { min-width: 0; display: grid; gap: 2px; }
+
+/* Cost */
+.price { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: grid; gap: 14px; }
+.price .amount { font-family: var(--display); font-size: clamp(2rem, 7vw, 2.8rem); font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 16px; }
+.cols > * { min-width: 0; }
+ul.ticks { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+ul.ticks li { padding-left: 1.4rem; position: relative; }
+ul.ticks li::before { content: ""; position: absolute; left: 0.2rem; top: 0.62em; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--cedar); }
+ul.ticks.no li::before { background: transparent; border: 2px solid var(--muted); width: 0.45rem; height: 0.45rem; }
+.note { font-size: 0.92rem; color: var(--muted); }
+
+/* Practical */
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 12px; }
+.tile { border-top: 2px solid var(--cedar); padding-top: 10px; display: grid; gap: 4px; min-width: 0; }
+
+/* Logo competition */
+.contest { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: grid; gap: 16px; position: relative; overflow: hidden; }
+.contest::after {
+  content: ""; position: absolute; right: -40px; top: -40px; width: 140px; height: 140px; border-radius: 50%;
+  border: 2px dashed var(--seal); opacity: 0.35; pointer-events: none;
+}
+.deadline { display: inline-flex; flex-wrap: wrap; gap: 8px; align-items: baseline; }
+.deadline .k { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; }
+.deadline .v { font-family: var(--display); font-size: 1.5rem; font-weight: 600; color: var(--seal); font-variant-numeric: tabular-nums; }
+.ideas { display: flex; flex-wrap: wrap; gap: 8px; }
+.idea { background: var(--cedar-soft); color: var(--ink); border-radius: 999px; padding: 4px 12px; font-size: 0.9rem; }
+ol.rules { margin: 0; padding-left: 1.3rem; display: grid; gap: 6px; }
+
+/* Sign up */
+.signup { background: var(--cedar-soft); border-radius: 12px; padding: 20px; display: grid; gap: 14px; }
+.email-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.email {
+  font: 600 1rem var(--body); background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+  padding: 10px 14px; user-select: all; overflow-wrap: anywhere; min-width: 0;
+}
+.status { font-size: 0.85rem; color: var(--cedar); min-height: 1.2em; }
+ol.fields { margin: 0; padding-left: 1.3rem; display: grid; gap: 4px; }
+
+/* Announcement */
+.announce { background: var(--card); border: 1px dashed var(--line); border-radius: 10px; padding: 16px; display: grid; gap: 10px; }
+.announce p { max-width: none; }
+
+footer { padding-block: 40px 32px; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--line); margin-top: 36px; display: grid; gap: 6px; }
+
+.route .plane { fill: var(--seal); }
+.route .pulse { fill: none; stroke: var(--seal); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.route .path { stroke-dasharray: 6 7; }
+.route { cursor: pointer; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Hero: text rises in, the route draws, the plane flies, Seoul pulses */
+  .hero > * { animation: rise 0.8s cubic-bezier(.2,.7,.2,1) both; }
+  .hero > *:nth-child(2) { animation-delay: 0.08s; }
+  .hero > *:nth-child(3) { animation-delay: 0.16s; }
+  .hero > *:nth-child(4) { animation-delay: 0.24s; }
+  .hero > *:nth-child(5) { animation-delay: 0.32s; }
+  .hero > *:nth-child(6) { animation-delay: 0.40s; }
+  @keyframes rise { from { transform: translateY(12px); opacity: 0.4; } to { transform: none; opacity: 1; } }
+
+  .route .path { animation: dash 1.2s linear infinite; }
+  @keyframes dash { to { stroke-dashoffset: -26; } }
+  .route .pulse.on { animation: pulse 2.2s ease-out infinite; }
+  @keyframes pulse { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(3.2); opacity: 0; } }
+
+  /* Sections lift gently as they come into view; they are fully visible before and after */
+  .lift { animation: lift 0.7s cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes lift { from { transform: translateY(16px); } to { transform: none; } }
+
+  /* Journey: stops pop in order */
+  .stops.go .stop .n { animation: pop 0.5s cubic-bezier(.3,1.6,.5,1) both; }
+  .stops.go .stop:nth-child(2) .n { animation-delay: 0.15s; }
+  .stops.go .stop:nth-child(3) .n { animation-delay: 0.30s; }
+  .stops.go .stop:nth-child(4) .n { animation-delay: 0.45s; }
+  .stops.go .stop:nth-child(5) .n { animation-delay: 0.60s; }
+  @keyframes pop { from { transform: scale(0.6); } to { transform: scale(1); } }
+  .stop.main .n { animation: glow 2.6s ease-in-out infinite; }
+  .stops.go .stop.main .n { animation: pop 0.5s cubic-bezier(.3,1.6,.5,1) 0.30s both, glow 2.6s ease-in-out 1s infinite; }
+  @keyframes glow { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--seal) 45%, transparent); } 50% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--seal) 0%, transparent); } }
+
+  /* Logo call: the dashed circle turns slowly */
+  .contest::after { animation: turn 30s linear infinite; }
+  @keyframes turn { to { transform: rotate(360deg); } }
+
+  /* Buttons and tiles respond to the pointer */
+  .btn { transition: transform 0.15s ease, box-shadow 0.15s ease; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px color-mix(in srgb, var(--ink) 14%, transparent); }
+  .tile { transition: transform 0.2s ease; }
+  .tile:hover { transform: translateY(-3px); }
+  .idea { transition: transform 0.15s ease, background 0.15s ease; }
+  .idea:hover { transform: rotate(-2deg) scale(1.05); }
+}
+</style>
+
+<script>
+(function () {
+  var lang = "en";
+  try { if (location.hash === "#el") lang = "el"; else { var s = localStorage.getItem("wyd-lang"); if (s === "el" || s === "en") lang = s; } } catch (e) {}
+  document.documentElement.dataset.lang = lang;
+  document.documentElement.lang = lang;
+})();
+</script>
+
+<header class="bar">
+  <div class="wrap">
+    <div class="brand">
+      <span data-l="en">Maronite Youth Ministry · Cyprus</span>
+      <span data-l="el">Ποιμαντική Νεολαίας Μαρωνιτών · Κύπρος</span>
+    </div>
+    <div class="lang" role="group" aria-label="Language / Γλώσσα">
+      <button type="button" id="btn-en" data-set="en">EN</button>
+      <button type="button" id="btn-el" data-set="el">ΕΛ</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow">
+      <span data-l="en">World Youth Day 2027 · South Korea</span>
+      <span data-l="el">Παγκόσμια Ημέρα Νεότητας 2027 · Νότια Κορέα</span>
+    </div>
+    <h1>
+      <span data-l="en">From Cyprus to <em>Seoul</em>, together.</span>
+      <span data-l="el">Από την Κύπρο στη <em>Σεούλ</em>, μαζί.</span>
+    </h1>
+    <p class="lead">
+      <span data-l="en">The young people of our Maronite parishes are going to World Youth Day in Seoul. Our group travels from 27 July to 12 August 2027.</span>
+      <span data-l="el">Οι νέοι των Μαρωνιτικών ενοριών μας πηγαίνουν στην Παγκόσμια Ημέρα Νεότητας στη Σεούλ. Η ομάδα μας ταξιδεύει από τις 27 Ιουλίου έως τις 12 Αυγούστου 2027.</span>
+    </p>
+
+    <svg class="route" viewBox="0 0 640 110" role="img" aria-label="Route: Larnaca to Seoul">
+      <path class="path" id="route-path" d="M40 80 C 200 -10, 440 -10, 600 80" fill="none" stroke-width="2"/>
+      <circle class="dot-a" cx="40" cy="80" r="7"/>
+      <circle class="pulse" id="seoul-pulse" cx="600" cy="80" r="7"/>
+      <circle class="dot-b" cx="600" cy="80" r="7"/>
+      <text x="40" y="104" text-anchor="start">LCA</text>
+      <text class="sub" x="78" y="104" text-anchor="start">Larnaca</text>
+      <text x="600" y="104" text-anchor="end">ICN</text>
+      <text class="sub" x="562" y="104" text-anchor="end">Seoul</text>
+      <text class="sub" x="320" y="46" text-anchor="middle">≈ 8,000 km</text>
+      <g id="plane-rest" transform="translate(320 12.5)">
+        <g id="plane">
+          <path class="plane" d="M-10 0 L6 -2 L11 0 L6 2 Z M-2 -1.5 L-6 -9 L-2.5 -9 L4 -1.5 Z M-2 1.5 L-6 9 L-2.5 9 L4 1.5 Z M-9 -1 L-11.5 -5 L-9 -5 L-6 -1 Z M-9 1 L-11.5 5 L-9 5 L-6 1 Z"/>
+          <animateMotion id="fly" begin="indefinite" dur="3.4s" fill="freeze" rotate="auto" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.45 0 0.2 1">
+            <mpath href="#route-path"/>
+          </animateMotion>
+        </g>
+      </g>
+    </svg>
+
+    <blockquote class="quote">
+      <span data-l="en">“Take courage! I have overcome the world.”</span>
+      <span data-l="el">«Θαρσεῖτε, ἐγὼ νενίκηκα τὸν κόσμον.»</span>
+      <cite><span data-l="en">John 16:33 · theme of WYD Seoul 2027</span><span data-l="el">Ιωάννης 16:33 · θέμα της ΠΗΝ Σεούλ 2027</span></cite>
+    </blockquote>
+
+    <div class="ctas">
+      <a class="btn primary" href="#signup"><span data-l="en">Register interest</span><span data-l="el">Δηλώστε ενδιαφέρον</span></a>
+      <a class="btn" href="#logo"><span data-l="en">Design our logo</span><span data-l="el">Σχεδιάστε το λογότυπό μας</span></a>
+      <a class="btn" href="#cost"><span data-l="en">See the cost</span><span data-l="el">Δείτε το κόστος</span></a>
+    </div>
+  </div>
+
+  <div class="facts">
+    <div class="fact"><span class="k"><span data-l="en">Dates</span><span data-l="el">Ημερομηνίες</span></span><span class="v"><span data-l="en">27 Jul – 12 Aug 2027</span><span data-l="el">27 Ιουλ – 12 Αυγ 2027</span></span></div>
+    <div class="fact"><span class="k"><span data-l="en">Main event</span><span data-l="el">Κύρια εκδήλωση</span></span><span class="v"><span data-l="en">3 – 8 Aug, Seoul</span><span data-l="el">3 – 8 Αυγ, Σεούλ</span></span></div>
+    <div class="fact"><span class="k"><span data-l="en">Estimated cost</span><span data-l="el">Εκτιμώμενο κόστος</span></span><span class="v">€2,000 – 2,600</span></div>
+    <div class="fact"><span class="k"><span data-l="en">With</span><span data-l="el">Με την</span></span><span class="v"><span data-l="en">Maronite Archeparchy of Cyprus</span><span data-l="el">Μαρωνιτική Αρχιεπισκοπή Κύπρου</span></span></div>
+  </div>
+
+  <section id="about">
+    <h2><span data-l="en">What is World Youth Day?</span><span data-l="el">Τι είναι η Παγκόσμια Ημέρα Νεότητας;</span></h2>
+    <p data-l="en">World Youth Day is a pilgrimage where young Catholics from every country meet the Pope for a week of prayer, teaching and celebration. Seoul 2027 is only the second World Youth Day held in Asia, after Manila in 1995. Pope Leo XIV is expected to attend.</p>
+    <p data-l="el">Η Παγκόσμια Ημέρα Νεότητας είναι ένα προσκύνημα όπου νέοι Καθολικοί από κάθε χώρα συναντούν τον Πάπα για μια εβδομάδα προσευχής, κατήχησης και γιορτής. Η Σεούλ 2027 είναι μόλις η δεύτερη Παγκόσμια Ημέρα Νεότητας στην Ασία, μετά τη Μανίλα το 1995. Αναμένεται να παρευρεθεί ο Πάπας Λέων ΙΔ΄.</p>
+  </section>
+
+  <section id="trip">
+    <h2><span data-l="en">Our journey</span><span data-l="el">Το ταξίδι μας</span></h2>
+    <ol class="stops">
+      <li class="stop">
+        <span class="n">1</span>
+        <div class="body">
+          <span class="when"><span data-l="en">27 – 28 July</span><span data-l="el">27 – 28 Ιουλίου</span></span>
+          <h3><span data-l="en">Fly to Korea</span><span data-l="el">Πτήση για την Κορέα</span></h3>
+          <p><span data-l="en">We leave Larnaca on 27 July and arrive in Seoul on 28 July.</span><span data-l="el">Αναχωρούμε από τη Λάρνακα στις 27 Ιουλίου και φτάνουμε στη Σεούλ στις 28 Ιουλίου.</span></p>
+        </div>
+      </li>
+      <li class="stop">
+        <span class="n">2</span>
+        <div class="body">
+          <span class="when"><span data-l="en">29 July – 2 August</span><span data-l="el">29 Ιουλίου – 2 Αυγούστου</span></span>
+          <h3><span data-l="en">Days in the Diocese</span><span data-l="el">Ημέρες στην Επισκοπή</span></h3>
+          <p><span data-l="en">We stay with a Korean diocese, its parishes and families: Mass, pilgrimages and local programmes, and a first taste of Korean life.</span><span data-l="el">Φιλοξενούμαστε από μια κορεατική επισκοπή, τις ενορίες και τις οικογένειές της: Θεία Λειτουργία, προσκυνήματα, τοπικά προγράμματα και μια πρώτη γεύση της ζωής στην Κορέα.</span></p>
+        </div>
+      </li>
+      <li class="stop main">
+        <span class="n">3</span>
+        <div class="body">
+          <span class="when"><span data-l="en">3 – 8 August</span><span data-l="el">3 – 8 Αυγούστου</span></span>
+          <h3><span data-l="en">World Youth Day in Seoul</span><span data-l="el">Παγκόσμια Ημέρα Νεότητας στη Σεούλ</span></h3>
+          <p><span data-l="en">Opening Mass, morning catechesis, the youth festival, the welcome of the Pope, the Way of the Cross, the night vigil and the closing Mass with the Pope.</span><span data-l="el">Εναρκτήρια Λειτουργία, πρωινές κατηχήσεις, φεστιβάλ νεολαίας, υποδοχή του Πάπα, Οδός του Σταυρού, νυχτερινή αγρυπνία και καταληκτική Λειτουργία με τον Πάπα.</span></p>
+        </div>
+      </li>
+      <li class="stop">
+        <span class="n">4</span>
+        <div class="body">
+          <span class="when"><span data-l="en">10 – 11 August</span><span data-l="el">10 – 11 Αυγούστου</span></span>
+          <h3><span data-l="en">Two days in Seoul</span><span data-l="el">Δύο μέρες στη Σεούλ</span></h3>
+          <p><span data-l="en">Time to see the city together before we go home.</span><span data-l="el">Χρόνος να γνωρίσουμε μαζί την πόλη πριν επιστρέψουμε.</span></p>
+        </div>
+      </li>
+      <li class="stop">
+        <span class="n">5</span>
+        <div class="body">
+          <span class="when"><span data-l="en">12 August</span><span data-l="el">12 Αυγούστου</span></span>
+          <h3><span data-l="en">Home to Cyprus</span><span data-l="el">Επιστροφή στην Κύπρο</span></h3>
+        </div>
+      </li>
+    </ol>
+    <p class="note"><span data-l="en">Travel dates may move by a day once flights are booked.</span><span data-l="el">Οι ημερομηνίες ταξιδιού μπορεί να αλλάξουν κατά μία μέρα όταν κλειστούν οι πτήσεις.</span></p>
+  </section>
+
+  <section id="who">
+    <h2><span data-l="en">Who can come</span><span data-l="el">Ποιοι μπορούν να έρθουν</span></h2>
+    <p data-l="en">Young people of the Maronite parishes of Cyprus. Young people under 18 are welcome with written parental consent and travel under the care of our adult leaders. Final age rules follow the official World Youth Day rules, due in late October 2026.</p>
+    <p data-l="el">Νέοι των Μαρωνιτικών ενοριών της Κύπρου. Οι ανήλικοι είναι ευπρόσδεκτοι με γραπτή συγκατάθεση των γονιών τους και ταξιδεύουν υπό την ευθύνη των ενήλικων αρχηγών μας. Οι τελικοί κανόνες ηλικίας ακολουθούν τους επίσημους κανόνες της Παγκόσμιας Ημέρας Νεότητας, που αναμένονται στα τέλη Οκτωβρίου 2026.</p>
+  </section>
+
+  <section id="cost">
+    <h2><span data-l="en">Cost</span><span data-l="el">Κόστος</span></h2>
+    <div class="price">
+      <div>
+        <div class="eyebrow"><span data-l="en">Estimate per person</span><span data-l="el">Εκτίμηση ανά άτομο</span></div>
+        <div class="amount">€2,000 – 2,600</div>
+      </div>
+      <div class="cols">
+        <div>
+          <h3><span data-l="en">Included</span><span data-l="el">Περιλαμβάνει</span></h3>
+          <ul class="ticks">
+            <li><span data-l="en">Return flights Larnaca – Seoul</span><span data-l="el">Πτήσεις μετ' επιστροφής Λάρνακα – Σεούλ</span></li>
+            <li><span data-l="en">Official WYD pilgrim package: shared lodging, meals, Seoul public transport, insurance and pilgrim kit</span><span data-l="el">Επίσημο πακέτο προσκυνητή: κοινή διαμονή, γεύματα, συγκοινωνίες στη Σεούλ, ασφάλεια και κιτ προσκυνητή</span></li>
+            <li><span data-l="en">Days in the Diocese</span><span data-l="el">Ημέρες στην Επισκοπή</span></li>
+            <li><span data-l="en">Travel insurance</span><span data-l="el">Ταξιδιωτική ασφάλιση</span></li>
+            <li><span data-l="en">Two days in Seoul</span><span data-l="el">Δύο μέρες στη Σεούλ</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3><span data-l="en">Not included</span><span data-l="el">Δεν περιλαμβάνει</span></h3>
+          <ul class="ticks no">
+            <li><span data-l="en">Personal spending money</span><span data-l="el">Προσωπικά έξοδα</span></li>
+            <li><span data-l="en">Passport renewal</span><span data-l="el">Ανανέωση διαβατηρίου</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="note"><span data-l="en">This is an estimate. We will confirm the final price and the payment plan once we receive the travel agency's flight quote.</span><span data-l="el">Πρόκειται για εκτίμηση. Θα επιβεβαιώσουμε την τελική τιμή και το πρόγραμμα πληρωμών μόλις λάβουμε την προσφορά του ταξιδιωτικού γραφείου για τις πτήσεις.</span></p>
+    </div>
+  </section>
+
+  <section id="practical">
+    <h2><span data-l="en">What to expect</span><span data-l="el">Τι να περιμένετε</span></h2>
+    <div class="grid2">
+      <div class="tile">
+        <h3><span data-l="en">Hot summer</span><span data-l="el">Ζεστό καλοκαίρι</span></h3>
+        <p><span data-l="en">Seoul in August is hot and humid, often 30 – 35 °C, with summer rain.</span><span data-l="el">Τον Αύγουστο η Σεούλ είναι ζεστή και υγρή, συχνά 30 – 35 °C, με καλοκαιρινές βροχές.</span></p>
+      </div>
+      <div class="tile">
+        <h3><span data-l="en">Simple lodging</span><span data-l="el">Απλή διαμονή</span></h3>
+        <p><span data-l="en">Pilgrims sleep in parish halls, schools or with families, often on the floor in a sleeping bag.</span><span data-l="el">Οι προσκυνητές κοιμούνται σε αίθουσες ενοριών, σχολεία ή σε οικογένειες, συχνά στο πάτωμα με υπνόσακο.</span></p>
+      </div>
+      <div class="tile">
+        <h3><span data-l="en">Long days, big crowds</span><span data-l="el">Μεγάλες μέρες, πολύς κόσμος</span></h3>
+        <p><span data-l="en">A lot of walking, and around a million people expected at the closing Mass.</span><span data-l="el">Πολύ περπάτημα και περίπου ένα εκατομμύριο άνθρωποι αναμένονται στην καταληκτική Λειτουργία.</span></p>
+      </div>
+      <div class="tile">
+        <h3><span data-l="en">Passport and entry</span><span data-l="el">Διαβατήριο και είσοδος</span></h3>
+        <p><span data-l="en">Your passport must be valid until at least February 2028. Cyprus passports need no visa. In 2027 each traveller will probably need a K-ETA, an online travel permit of about €7. Other passports: please check with us.</span><span data-l="el">Το διαβατήριό σας πρέπει να ισχύει τουλάχιστον μέχρι τον Φεβρουάριο του 2028. Τα κυπριακά διαβατήρια δεν χρειάζονται βίζα. Το 2027 κάθε ταξιδιώτης πιθανότατα θα χρειαστεί K-ETA, μια ηλεκτρονική άδεια ταξιδιού περίπου €7. Για άλλα διαβατήρια, επικοινωνήστε μαζί μας.</span></p>
+      </div>
+      <div class="tile">
+        <h3><span data-l="en">Health and needs</span><span data-l="el">Υγεία και ανάγκες</span></h3>
+        <p><span data-l="en">Tell us early about any medical, dietary or sensory needs, so we can plan quiet breaks and support.</span><span data-l="el">Ενημερώστε μας νωρίς για ιατρικές, διατροφικές ή αισθητηριακές ανάγκες, ώστε να προγραμματίσουμε διαλείμματα ξεκούρασης και στήριξη.</span></p>
+      </div>
+      <div class="tile">
+        <h3><span data-l="en">Pray with us</span><span data-l="el">Προσευχηθείτε μαζί μας</span></h3>
+        <p><span data-l="en">Every day at 20:27, young people around the world pray for WYD Seoul 2027: the Prayer for the Youth, an Our Father, a Hail Mary and a Glory Be.</span><span data-l="el">Κάθε μέρα στις 20:27, νέοι σε όλο τον κόσμο προσεύχονται για την ΠΗΝ Σεούλ 2027: την Προσευχή για τους Νέους, ένα Πάτερ Ημών, ένα Χαίρε Μαρία και ένα Δόξα.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="logo">
+    <h2><span data-l="en">Open call: design our logo</span><span data-l="el">Ανοιχτή πρόσκληση: σχεδιάστε το λογότυπό μας</span></h2>
+    <div class="contest">
+      <p><span data-l="en">The Cyprus group needs its own logo for our T-shirts, flag and social media in Seoul. Anyone from our Maronite parishes can enter, of any age.</span><span data-l="el">Η ομάδα της Κύπρου χρειάζεται το δικό της λογότυπο για τα μπλουζάκια, τη σημαία και τα μέσα κοινωνικής δικτύωσης στη Σεούλ. Μπορεί να συμμετάσχει οποιοσδήποτε από τις Μαρωνιτικές ενορίες μας, κάθε ηλικίας.</span></p>
+      <div class="deadline">
+        <span class="k"><span data-l="en">Send your design by</span><span data-l="el">Στείλτε το σχέδιό σας μέχρι</span></span>
+        <span class="v"><span data-l="en">30 November 2026</span><span data-l="el">30 Νοεμβρίου 2026</span></span>
+      </div>
+      <div>
+        <h3><span data-l="en">Ideas to start from</span><span data-l="el">Ιδέες για να ξεκινήσετε</span></h3>
+        <div class="ideas" style="margin-top:8px">
+          <span class="idea"><span data-l="en">Cyprus</span><span data-l="el">Κύπρος</span></span>
+          <span class="idea"><span data-l="en">The cedar</span><span data-l="el">Ο κέδρος</span></span>
+          <span class="idea"><span data-l="en">Saint Maron</span><span data-l="el">Άγιος Μάρων</span></span>
+          <span class="idea"><span data-l="en">Korea and Seoul</span><span data-l="el">Κορέα και Σεούλ</span></span>
+          <span class="idea"><span data-l="en">“Take courage!”</span><span data-l="el">«Θαρσεῖτε»</span></span>
+          <span class="idea"><span data-l="en">A journey from West to East</span><span data-l="el">Ένα ταξίδι από τη Δύση στην Ανατολή</span></span>
+        </div>
+      </div>
+      <div>
+        <h3><span data-l="en">How to enter</span><span data-l="el">Πώς να συμμετάσχετε</span></h3>
+        <ol class="rules" style="margin-top:8px">
+          <li><span data-l="en">Email your design to maroniteyouthpastoralcy@gmail.com as a PNG, JPG or PDF. A hand drawing photographed clearly is fine.</span><span data-l="el">Στείλτε το σχέδιό σας στο maroniteyouthpastoralcy@gmail.com σε μορφή PNG, JPG ή PDF. Ένα καθαρά φωτογραφημένο σχέδιο στο χέρι είναι αποδεκτό.</span></li>
+          <li><span data-l="en">Add your name, parish, and one or two sentences about what your design means.</span><span data-l="el">Προσθέστε το όνομά σας, την ενορία σας και μία ή δύο προτάσεις για το τι σημαίνει το σχέδιό σας.</span></li>
+          <li><span data-l="en">The design must be your own work. Do not copy the official WYD Seoul logo or other logos.</span><span data-l="el">Το σχέδιο πρέπει να είναι δικό σας έργο. Μην αντιγράφετε το επίσημο λογότυπο της ΠΗΝ Σεούλ ή άλλα λογότυπα.</span></li>
+          <li><span data-l="en">Keep it simple: it should still read when printed small on a T-shirt.</span><span data-l="el">Κρατήστε το απλό: πρέπει να διαβάζεται και όταν τυπωθεί μικρό σε μπλουζάκι.</span></li>
+          <li><span data-l="en">Under 18? A parent should send the entry or be copied on the email.</span><span data-l="el">Κάτω των 18; Ένας γονέας πρέπει να στείλει τη συμμετοχή ή να είναι σε κοινοποίηση στο email.</span></li>
+        </ol>
+      </div>
+      <p class="note"><span data-l="en">The youth ministry team chooses the winning design. By entering, you agree that the Maronite Youth Ministry of Cyprus may use and adapt your design for the trip. The designer will be credited.</span><span data-l="el">Η ομάδα της ποιμαντικής νεολαίας επιλέγει το νικητήριο σχέδιο. Με τη συμμετοχή σας, συμφωνείτε ότι η Ποιμαντική Νεολαίας Μαρωνιτών Κύπρου μπορεί να χρησιμοποιήσει και να προσαρμόσει το σχέδιό σας για το ταξίδι. Ο δημιουργός θα αναφέρεται.</span></p>
+    </div>
+  </section>
+
+  <section id="signup">
+    <h2><span data-l="en">Register your interest</span><span data-l="el">Δηλώστε ενδιαφέρον</span></h2>
+    <div class="signup">
+      <p><span data-l="en">Registering interest is free and does not commit you. It helps us reserve enough flight seats.</span><span data-l="el">Η δήλωση ενδιαφέροντος είναι δωρεάν και δεν σας δεσμεύει. Μας βοηθά να κρατήσουμε αρκετές θέσεις στις πτήσεις.</span></p>
+      <div><a class="btn primary" id="form-link" href="#" target="_blank" rel="noopener" hidden><span data-l="en">Open the sign-up form</span><span data-l="el">Άνοιγμα φόρμας εγγραφής</span></a></div>
+      <p id="email-intro"><span data-l="en">Send us an email with:</span><span data-l="el">Στείλτε μας email με:</span></p>
+      <ol class="fields">
+        <li><span data-l="en">Full name</span><span data-l="el">Ονοματεπώνυμο</span></li>
+        <li><span data-l="en">Parish</span><span data-l="el">Ενορία</span></li>
+        <li><span data-l="en">Date of birth</span><span data-l="el">Ημερομηνία γέννησης</span></li>
+        <li><span data-l="en">Mobile number</span><span data-l="el">Κινητό τηλέφωνο</span></li>
+        <li><span data-l="en">For under-18s: a parent's name and mobile number</span><span data-l="el">Για ανήλικους: όνομα και κινητό γονέα</span></li>
+      </ol>
+      <div class="email-row">
+        <span class="email" id="email-address">maroniteyouthpastoralcy@gmail.com</span>
+        <button type="button" class="btn" id="copy-email"><span data-l="en">Copy address</span><span data-l="el">Αντιγραφή διεύθυνσης</span></button>
+      </div>
+      <div class="status" id="status-email" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section id="parishes">
+    <h2><span data-l="en">For parishes</span><span data-l="el">Για τις ενορίες</span></h2>
+    <p><span data-l="en">A short announcement for the parish bulletin or after Mass. Copy it as it is.</span><span data-l="el">Μια σύντομη ανακοίνωση για το ενοριακό δελτίο ή μετά τη Λειτουργία. Αντιγράψτε τη όπως είναι.</span></p>
+    <div class="announce">
+      <p id="announce-en" data-l="en">World Youth Day Seoul 2027: The Maronite Youth Ministry of Cyprus is organising a group pilgrimage to World Youth Day in Seoul, South Korea, from 27 July to 12 August 2027. Young people who would like to join can register their interest by email at maroniteyouthpastoralcy@gmail.com. Estimated cost: €2,000 – 2,600 per person. We are also inviting everyone to design the logo of the Cyprus group: send your design to the same email by 30 November 2026.</p>
+      <p id="announce-el" data-l="el">Παγκόσμια Ημέρα Νεότητας Σεούλ 2027: Η Ποιμαντική Νεολαίας των Μαρωνιτών της Κύπρου οργανώνει ομαδικό προσκύνημα στην Παγκόσμια Ημέρα Νεότητας στη Σεούλ της Νότιας Κορέας, από τις 27 Ιουλίου έως τις 12 Αυγούστου 2027. Οι νέοι που θέλουν να συμμετάσχουν μπορούν να δηλώσουν ενδιαφέρον με email στο maroniteyouthpastoralcy@gmail.com. Εκτιμώμενο κόστος: €2.000 – 2.600 ανά άτομο. Προσκαλούμε επίσης όλους να σχεδιάσουν το λογότυπο της ομάδας της Κύπρου: στείλτε το σχέδιό σας στο ίδιο email μέχρι τις 30 Νοεμβρίου 2026.</p>
+      <div><button type="button" class="btn" id="copy-announce"><span data-l="en">Copy announcement</span><span data-l="el">Αντιγραφή ανακοίνωσης</span></button></div>
+      <div class="status" id="status-announce" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section id="links">
+    <h2><span data-l="en">Official information</span><span data-l="el">Επίσημες πληροφορίες</span></h2>
+    <p><span data-l="en">The organisers publish all official news, the hymn and the prayer at</span><span data-l="el">Οι διοργανωτές δημοσιεύουν όλα τα επίσημα νέα, τον ύμνο και την προσευχή στο</span> <a href="https://wydseoul.org/en" target="_blank" rel="noopener">wydseoul.org</a>.</p>
+  </section>
+
+  <footer>
+    <span><span data-l="en">Maronite Youth Ministry, Maronite Archeparchy of Cyprus</span><span data-l="el">Ποιμαντική Νεολαίας, Μαρωνιτική Αρχιεπισκοπή Κύπρου</span></span>
+    <span><span data-l="en">Last updated 6 October 2026</span><span data-l="el">Τελευταία ενημέρωση 6 Οκτωβρίου 2026</span></span>
+  </footer>
+</main>
+
+<script>
+(function () {
+  // Paste a Google Form link here to show the sign-up form button.
+  var FORM_URL = "";
+
+  var root = document.documentElement;
+  function setLang(l) {
+    root.dataset.lang = l; root.lang = l;
+    document.getElementById("btn-en").setAttribute("aria-pressed", String(l === "en"));
+    document.getElementById("btn-el").setAttribute("aria-pressed", String(l === "el"));
+    try { localStorage.setItem("wyd-lang", l); } catch (e) {}
+  }
+  setLang(root.dataset.lang === "el" ? "el" : "en");
+  document.querySelectorAll(".lang button").forEach(function (b) {
+    b.addEventListener("click", function () { setLang(b.dataset.set); });
+  });
+
+  if (FORM_URL) {
+    var f = document.getElementById("form-link"); f.href = FORM_URL; f.hidden = false;
+    document.getElementById("email-intro").innerHTML = '<span data-l="en">Or send us an email with:</span><span data-l="el">Ή στείλτε μας email με:</span>';
+  }
+
+  // Animation (only when the viewer has not asked for reduced motion)
+  var motionOK = true;
+  try { motionOK = !window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+  if (motionOK) {
+    // Plane flies Larnaca to Seoul once, then Seoul pulses. Tap the map to fly again.
+    var fly = document.getElementById("fly");
+    var rest = document.getElementById("plane-rest");
+    var pulse = document.getElementById("seoul-pulse");
+    function launch() {
+      try {
+        rest.removeAttribute("transform");
+        pulse.classList.remove("on");
+        fly.beginElement();
+        setTimeout(function () { pulse.classList.add("on"); }, 3400);
+      } catch (e) {}
+    }
+    if (fly && typeof fly.beginElement === "function") {
+      setTimeout(launch, 450);
+      document.querySelector(".route").addEventListener("click", launch);
+    }
+
+    // Sections lift as they enter view; the journey stops pop in order.
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          var t = en.target;
+          if (t.classList.contains("stops")) t.classList.add("go"); else t.classList.add("lift");
+          io.unobserve(t);
+        });
+      }, { threshold: 0.15 });
+      var fold = window.innerHeight;
+      document.querySelectorAll("main > section, .facts, .stops").forEach(function (n) {
+        if (n.getBoundingClientRect().top > fold * 0.9) io.observe(n);
+      });
+    }
+  }
+
+  function el() { return root.dataset.lang === "el"; }
+  function selectText(node) {
+    try { var r = document.createRange(); r.selectNodeContents(node); var s = getSelection(); s.removeAllRanges(); s.addRange(r); } catch (e) {}
+  }
+  function copy(text, node, out, okEn, okEl) {
+    var done = function () { out.textContent = el() ? okEl : okEn; };
+    var fail = function () { selectText(node); out.textContent = el() ? "Το κείμενο επιλέχθηκε. Πατήστε Ctrl+C ή Cmd+C για αντιγραφή." : "Text selected. Press Ctrl+C or Cmd+C to copy."; };
+    try { navigator.clipboard.writeText(text).then(done, fail); } catch (e) { fail(); }
+  }
+  document.getElementById("copy-email").addEventListener("click", function () {
+    var n = document.getElementById("email-address");
+    copy(n.textContent.trim(), n, document.getElementById("status-email"), "Email address copied.", "Η διεύθυνση email αντιγράφηκε.");
+  });
+  document.getElementById("copy-announce").addEventListener("click", function () {
+    var n = document.getElementById(el() ? "announce-el" : "announce-en");
+    copy(n.textContent.trim(), n, document.getElementById("status-announce"), "Announcement copied.", "Η ανακοίνωση αντιγράφηκε.");
+  });
+})();
+</script>
+
+</body>
+</html>
