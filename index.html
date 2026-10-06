@@ -26,17 +26,8 @@
   --step-0: 1rem;
   --step-1: 1.2rem;
   --step-2: 1.6rem;
-  --step-3: clamp(2.2rem, 6vw, 3.6rem);
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #0F161C; --card: #16212A; --ink: #E7ECEA; --muted: #9DA9B1; --line: #26333D;
-    --cedar: #86BFA3; --cedar-soft: #1B2B26; --seal: #E2694F; --seal-ink: #160B08; color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --paper: #0F161C; --card: #16212A; --ink: #E7ECEA; --muted: #9DA9B1; --line: #26333D;
-  --cedar: #86BFA3; --cedar-soft: #1B2B26; --seal: #E2694F; --seal-ink: #160B08; color-scheme: dark;
+  --step-3: clamp(2.2rem, 5vw, 4.2rem);
+  color-scheme: light;
 }
 
 html:not([data-lang="el"]) [data-l="el"] { display: none !important; }
@@ -48,7 +39,7 @@ body {
   font-family: var(--body); font-size: var(--step-0); line-height: 1.6;
   padding-inline: 16px; margin: 0;
 }
-.wrap { max-width: 46rem; margin-inline: auto; }
+.wrap { max-width: 78rem; margin-inline: auto; }
 a { color: var(--cedar); text-underline-offset: 3px; }
 a:focus-visible, button:focus-visible { outline: 3px solid var(--seal); outline-offset: 3px; border-radius: 4px; }
 h1, h2 { font-family: var(--display); text-wrap: balance; line-height: 1.15; margin: 0; }
@@ -71,7 +62,8 @@ p { margin: 0; max-width: 65ch; }
 .lang button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
 
 /* Hero */
-.hero { padding-block: 40px 28px; display: grid; gap: 18px; }
+.hero { padding-block: 40px 28px; display: grid; gap: 28px; align-items: center; }
+.hero-text, .hero-art { display: grid; gap: 18px; min-width: 0; }
 .eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.78rem; font-weight: 600; color: var(--cedar); }
 .hero h1 { font-size: var(--step-3); font-weight: 600; }
 .hero h1 em { font-style: italic; font-weight: 500; color: var(--seal); }
@@ -162,14 +154,31 @@ footer { padding-block: 40px 32px; color: var(--muted); font-size: 0.85rem; bord
 .route .path { stroke-dasharray: 6 7; }
 .route { cursor: pointer; }
 
+/* Wide screens: two-column hero, headings in a left rail, content to the right */
+@media (min-width: 960px) {
+  body { padding-inline: 40px; }
+  .bar { margin-inline: -40px; padding-inline: 40px; }
+  .hero { grid-template-columns: 1.1fr 1fr; padding-block: 72px 48px; gap: 56px; }
+  .facts { grid-template-columns: repeat(4, 1fr); }
+  section { grid-template-columns: 17rem minmax(0, 1fr); column-gap: 56px; padding-block: 56px 16px; align-items: start; border-top: 1px solid var(--line); margin-top: 40px; }
+  section > h2 { grid-column: 1; grid-row: span 2; position: sticky; top: 72px; }
+  section > :not(h2) { grid-column: 2; }
+  .grid2 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  .stops { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+  .stop { grid-template-columns: 1fr; gap: 10px; padding-bottom: 0; }
+  .stop:not(:last-child)::before { left: 2.4rem; right: -16px; top: calc(1.1rem - 1px); bottom: auto; border-left: 0; border-top: 2px dashed var(--line); }
+  .price .amount { font-size: 3.4rem; }
+  footer { grid-template-columns: 1fr auto; }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   /* Hero: text rises in, the route draws, the plane flies, Seoul pulses */
-  .hero > * { animation: rise 0.8s cubic-bezier(.2,.7,.2,1) both; }
-  .hero > *:nth-child(2) { animation-delay: 0.08s; }
-  .hero > *:nth-child(3) { animation-delay: 0.16s; }
-  .hero > *:nth-child(4) { animation-delay: 0.24s; }
-  .hero > *:nth-child(5) { animation-delay: 0.32s; }
-  .hero > *:nth-child(6) { animation-delay: 0.40s; }
+  .hero-text > *, .hero-art > * { animation: rise 0.8s cubic-bezier(.2,.7,.2,1) both; }
+  .hero-text > *:nth-child(2) { animation-delay: 0.08s; }
+  .hero-text > *:nth-child(3) { animation-delay: 0.16s; }
+  .hero-text > *:nth-child(4) { animation-delay: 0.24s; }
+  .hero-art > *:nth-child(1) { animation-delay: 0.20s; }
+  .hero-art > *:nth-child(2) { animation-delay: 0.32s; }
   @keyframes rise { from { transform: translateY(12px); opacity: 0.4; } to { transform: none; opacity: 1; } }
 
   .route .path { animation: dash 1.2s linear infinite; }
@@ -231,6 +240,7 @@ footer { padding-block: 40px 32px; color: var(--muted); font-size: 0.85rem; bord
 <main class="wrap">
 
   <div class="hero">
+   <div class="hero-text">
     <div class="eyebrow">
       <span data-l="en">World Youth Day 2027 · South Korea</span>
       <span data-l="el">Παγκόσμια Ημέρα Νεότητας 2027 · Νότια Κορέα</span>
@@ -243,7 +253,13 @@ footer { padding-block: 40px 32px; color: var(--muted); font-size: 0.85rem; bord
       <span data-l="en">The young people of our Maronite parishes are going to World Youth Day in Seoul. Our group travels from 27 July to 12 August 2027.</span>
       <span data-l="el">Οι νέοι των Μαρωνιτικών ενοριών μας πηγαίνουν στην Παγκόσμια Ημέρα Νεότητας στη Σεούλ. Η ομάδα μας ταξιδεύει από τις 27 Ιουλίου έως τις 12 Αυγούστου 2027.</span>
     </p>
-
+    <div class="ctas">
+      <a class="btn primary" href="#signup"><span data-l="en">Register interest</span><span data-l="el">Δηλώστε ενδιαφέρον</span></a>
+      <a class="btn" href="#logo"><span data-l="en">Design our logo</span><span data-l="el">Σχεδιάστε το λογότυπό μας</span></a>
+      <a class="btn" href="#cost"><span data-l="en">See the cost</span><span data-l="el">Δείτε το κόστος</span></a>
+    </div>
+   </div>
+   <div class="hero-art">
     <svg class="route" viewBox="0 0 640 110" role="img" aria-label="Route: Larnaca to Seoul">
       <path class="path" id="route-path" d="M40 80 C 200 -10, 440 -10, 600 80" fill="none" stroke-width="2"/>
       <circle class="dot-a" cx="40" cy="80" r="7"/>
@@ -269,12 +285,7 @@ footer { padding-block: 40px 32px; color: var(--muted); font-size: 0.85rem; bord
       <span data-l="el">«Θαρσεῖτε, ἐγὼ νενίκηκα τὸν κόσμον.»</span>
       <cite><span data-l="en">John 16:33 · theme of WYD Seoul 2027</span><span data-l="el">Ιωάννης 16:33 · θέμα της ΠΗΝ Σεούλ 2027</span></cite>
     </blockquote>
-
-    <div class="ctas">
-      <a class="btn primary" href="#signup"><span data-l="en">Register interest</span><span data-l="el">Δηλώστε ενδιαφέρον</span></a>
-      <a class="btn" href="#logo"><span data-l="en">Design our logo</span><span data-l="el">Σχεδιάστε το λογότυπό μας</span></a>
-      <a class="btn" href="#cost"><span data-l="en">See the cost</span><span data-l="el">Δείτε το κόστος</span></a>
-    </div>
+   </div>
   </div>
 
   <div class="facts">
