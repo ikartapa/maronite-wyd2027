@@ -3,24 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="images/youth-logo.png">
 </head>
 <body>
 <title>Maronite Youth to Seoul 2027</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700&family=Noto+Serif+Display:ital,wght@0,600;1,500;1,600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:wght@400;500;600;700;800;900&family=Noto+Serif+Display:ital,wght@0,600;1,500;1,600&display=swap">
 <style>
-/* Layout: a single reading column shaped as a route, Larnaca to Seoul; sections are stops along it. */
+/* Layout: the route from Larnaca to Seoul, wearing the Youth Pastoral logo's colours: Maronite-cross red, the two figures' blue and orange, the sun's yellow, the branch's green. */
 :root {
-  --paper: #F4F6F3;
+  --paper: #FAFAF7;
   --card: #FFFFFF;
-  --ink: #15212E;
-  --muted: #56626D;
-  --line: #D6DCD6;
-  --cedar: #2F5D4A;
-  --cedar-soft: #E3ECE6;
-  --seal: #B93E27;
+  --ink: #161616;
+  --muted: #55595E;
+  --line: #E1E1DC;
+  --cedar: #1F5E3B;
+  --cedar-soft: #E6F0EA;
+  --seal: #B3372E;
   --seal-ink: #FFFFFF;
+  --blue: #1B75BB;
+  --orange: #E0843A;
+  --sun: #E9BA3F;
+  --heading: "Commissioner", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --display: "Noto Serif Display", "Georgia", "Times New Roman", serif;
   --body: "Commissioner", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --step-0: 1rem;
@@ -42,8 +47,10 @@ body {
 .wrap { max-width: 78rem; margin-inline: auto; }
 a { color: var(--cedar); text-underline-offset: 3px; }
 a:focus-visible, button:focus-visible { outline: 3px solid var(--seal); outline-offset: 3px; border-radius: 4px; }
-h1, h2 { font-family: var(--display); text-wrap: balance; line-height: 1.15; margin: 0; }
-h2 { font-size: var(--step-2); font-weight: 600; color: var(--ink); }
+h1, h2 { font-family: var(--heading); text-wrap: balance; line-height: 1.08; margin: 0; letter-spacing: -0.02em; }
+h2 { font-size: var(--step-2); font-weight: 800; color: var(--ink); }
+h2::after { content: ""; display: block; width: 3.2rem; height: 5px; border-radius: 3px; margin-top: 10px;
+  background: linear-gradient(90deg, var(--blue) 0 25%, var(--orange) 25% 50%, var(--sun) 50% 75%, var(--cedar) 75% 100%); }
 h3 { font-size: var(--step-1); margin: 0; font-weight: 600; }
 p { margin: 0; max-width: 65ch; }
 
@@ -54,7 +61,8 @@ p { margin: 0; max-width: 65ch; }
   margin-inline: -16px; padding: 10px 16px;
 }
 .bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.brand { font-weight: 600; font-size: 0.95rem; letter-spacing: 0.01em; }
+.brand { font-weight: 700; font-size: 0.95rem; letter-spacing: 0.01em; display: inline-flex; align-items: center; gap: 10px; }
+.brand img { width: 40px; height: 40px; flex: none; }
 .lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
 .lang button {
   font: 600 0.85rem var(--body); padding: 6px 14px; border: 0; background: transparent; color: var(--muted); cursor: pointer;
@@ -64,9 +72,12 @@ p { margin: 0; max-width: 65ch; }
 /* Hero */
 .hero { padding-block: 40px 28px; display: grid; gap: 28px; align-items: center; }
 .hero-text, .hero-art { display: grid; gap: 18px; min-width: 0; }
+.emblem { position: relative; width: min(100%, 300px); justify-self: center; aspect-ratio: 1; max-width: 100%; }
+.emblem img { width: 100%; height: 100%; object-fit: contain; position: relative; }
+.emblem .ring { position: absolute; inset: -14px; border-radius: 50%; border: 2px dashed color-mix(in srgb, var(--seal) 40%, transparent); }
 .eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.78rem; font-weight: 600; color: var(--cedar); }
-.hero h1 { font-size: var(--step-3); font-weight: 600; }
-.hero h1 em { font-style: italic; font-weight: 500; color: var(--seal); }
+.hero h1 { font-size: var(--step-3); font-weight: 900; }
+.hero h1 em { font-style: normal; color: var(--seal); }
 .hero .lead { font-size: var(--step-1); color: var(--muted); }
 .route { width: 100%; max-width: 100%; height: auto; display: block; }
 .route .path { stroke: var(--muted); }
@@ -86,7 +97,10 @@ p { margin: 0; max-width: 65ch; }
 
 /* Facts */
 .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
-.fact { background: var(--card); padding: 14px 16px; display: grid; gap: 2px; min-width: 0; }
+.fact { background: var(--card); padding: 14px 16px; display: grid; gap: 2px; min-width: 0; border-top: 4px solid var(--blue); }
+.fact:nth-child(2) { border-top-color: var(--orange); }
+.fact:nth-child(3) { border-top-color: var(--sun); }
+.fact:nth-child(4) { border-top-color: var(--cedar); }
 .fact .k { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; }
 .fact .v { font-weight: 600; font-variant-numeric: tabular-nums; }
 
@@ -101,13 +115,17 @@ section { padding-block: 36px 8px; display: grid; gap: 14px; scroll-margin-top: 
   width: 2.2rem; height: 2.2rem; border-radius: 50%; display: grid; place-items: center;
   border: 2px solid var(--cedar); color: var(--cedar); font-weight: 700; font-variant-numeric: tabular-nums; background: var(--paper);
 }
+.stop:nth-child(1) .n { border-color: var(--blue); color: var(--blue); }
+.stop:nth-child(2) .n { border-color: var(--orange); color: var(--orange); }
+.stop:nth-child(4) .n { border-color: #B38612; color: #8A6608; }
+.stop:nth-child(5) .n { border-color: var(--cedar); color: var(--cedar); }
 .stop.main .n { background: var(--seal); border-color: var(--seal); color: var(--seal-ink); }
 .stop .when { font-size: 0.85rem; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; }
 .stop .body { min-width: 0; display: grid; gap: 2px; }
 
 /* Cost */
 .price { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: grid; gap: 14px; }
-.price .amount { font-family: var(--display); font-size: clamp(2rem, 7vw, 2.8rem); font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1; }
+.price .amount { font-family: var(--heading); font-weight: 900; font-size: clamp(2rem, 7vw, 2.8rem); font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1; }
 .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 16px; }
 .cols > * { min-width: 0; }
 ul.ticks { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
@@ -118,7 +136,12 @@ ul.ticks.no li::before { background: transparent; border: 2px solid var(--muted)
 
 /* Practical */
 .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 12px; }
-.tile { border-top: 2px solid var(--cedar); padding-top: 10px; display: grid; gap: 4px; min-width: 0; }
+.tile { border-top: 3px solid var(--blue); padding-top: 10px; display: grid; gap: 4px; min-width: 0; }
+.tile:nth-child(6n+2) { border-top-color: var(--orange); }
+.tile:nth-child(6n+3) { border-top-color: var(--sun); }
+.tile:nth-child(6n+4) { border-top-color: var(--cedar); }
+.tile:nth-child(6n+5) { border-top-color: var(--seal); }
+.tile:nth-child(6n+6) { border-top-color: var(--ink); }
 
 /* Logo competition */
 .contest { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: grid; gap: 16px; position: relative; overflow: hidden; }
@@ -128,7 +151,7 @@ ul.ticks.no li::before { background: transparent; border: 2px solid var(--muted)
 }
 .deadline { display: inline-flex; flex-wrap: wrap; gap: 8px; align-items: baseline; }
 .deadline .k { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; }
-.deadline .v { font-family: var(--display); font-size: 1.5rem; font-weight: 600; color: var(--seal); font-variant-numeric: tabular-nums; }
+.deadline .v { font-family: var(--heading); font-size: 1.5rem; font-weight: 800; color: var(--seal); font-variant-numeric: tabular-nums; }
 .ideas { display: flex; flex-wrap: wrap; gap: 8px; }
 .idea { background: var(--cedar-soft); color: var(--ink); border-radius: 999px; padding: 4px 12px; font-size: 0.9rem; }
 ol.rules { margin: 0; padding-left: 1.3rem; display: grid; gap: 6px; }
@@ -168,7 +191,11 @@ ol.fields { margin: 0; padding-left: 1.3rem; display: grid; gap: 4px; }
 .announce { background: var(--card); border: 1px dashed var(--line); border-radius: 10px; padding: 16px; display: grid; gap: 10px; }
 .announce p { max-width: none; }
 
-footer { padding-block: 40px 32px; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--line); margin-top: 36px; display: grid; gap: 6px; }
+footer { padding-block: 40px 32px; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--line); margin-top: 36px; display: grid; gap: 14px; align-items: center; }
+.patrons { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.patrons img { height: 72px; width: auto; }
+.patrons .names { display: grid; gap: 2px; }
+.patrons strong { color: var(--ink); }
 
 .route .plane { fill: var(--seal); }
 .route .pulse { fill: none; stroke: var(--seal); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; }
@@ -190,6 +217,7 @@ footer { padding-block: 40px 32px; color: var(--muted); font-size: 0.85rem; bord
   .stop:not(:last-child)::before { left: 2.4rem; right: -16px; top: calc(1.1rem - 1px); bottom: auto; border-left: 0; border-top: 2px dashed var(--line); }
   .price .amount { font-size: 3.4rem; }
   footer { grid-template-columns: 1fr auto; }
+  .emblem { width: min(100%, 340px); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -222,6 +250,10 @@ footer { padding-block: 40px 32px; color: var(--muted); font-size: 0.85rem; bord
   .stops.go .stop.main .n { animation: pop 0.5s cubic-bezier(.3,1.6,.5,1) 0.30s both, glow 2.6s ease-in-out 1s infinite; }
   @keyframes glow { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--seal) 45%, transparent); } 50% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--seal) 0%, transparent); } }
 
+  .emblem .ring { animation: turn 40s linear infinite; }
+  .emblem img { animation: float 6s ease-in-out infinite; }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
   /* Logo call: the dashed circle turns slowly */
   .contest::after { animation: turn 30s linear infinite; }
   @keyframes turn { to { transform: rotate(360deg); } }
@@ -248,6 +280,7 @@ footer { padding-block: 40px 32px; color: var(--muted); font-size: 0.85rem; bord
 <header class="bar">
   <div class="wrap">
     <div class="brand">
+      <img src="images/youth-logo.png" alt="" width="40" height="40">
       <span data-l="en">Maronite Youth Ministry · Cyprus</span>
       <span data-l="el">Ποιμαντική Νεολαίας Μαρωνιτών · Κύπρος</span>
     </div>
@@ -281,6 +314,10 @@ footer { padding-block: 40px 32px; color: var(--muted); font-size: 0.85rem; bord
     </div>
    </div>
    <div class="hero-art">
+    <div class="emblem">
+      <span class="ring" aria-hidden="true"></span>
+      <img src="images/youth-logo.png" alt="Youth Pastoral, Maronite Archeparchy of Cyprus" width="640" height="642">
+    </div>
     <svg class="route" viewBox="0 0 640 110" role="img" aria-label="Route: Larnaca to Seoul">
       <path class="path" id="route-path" d="M40 80 C 200 -10, 440 -10, 600 80" fill="none" stroke-width="2"/>
       <circle class="dot-a" cx="40" cy="80" r="7"/>
@@ -563,7 +600,14 @@ footer { padding-block: 40px 32px; color: var(--muted); font-size: 0.85rem; bord
   </section>
 
   <footer>
-    <span><span data-l="en">Maronite Youth Ministry, Maronite Archeparchy of Cyprus</span><span data-l="el">Ποιμαντική Νεολαίας, Μαρωνιτική Αρχιεπισκοπή Κύπρου</span></span>
+    <div class="patrons">
+      <img src="images/youth-logo.png" alt="Youth Pastoral" width="72" height="72">
+      <img src="images/archeparchy-logo.jpg" alt="Maronite Archeparchy of Cyprus" width="85" height="72">
+      <span class="names">
+        <strong><span data-l="en">Youth Pastoral</span><span data-l="el">Ποιμαντική Νεολαίας</span></strong>
+        <span><span data-l="en">Maronite Archeparchy of Cyprus</span><span data-l="el">Μαρωνιτική Αρχιεπισκοπή Κύπρου</span></span>
+      </span>
+    </div>
     <span><span data-l="en">Last updated 6 October 2026</span><span data-l="el">Τελευταία ενημέρωση 6 Οκτωβρίου 2026</span></span>
   </footer>
 </main>
